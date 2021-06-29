@@ -247,6 +247,16 @@ class TestConfig(TestCaseBase):
         self.assertTrue(e.enforce("bob", "/pen2/1", "GET"))
         self.assertTrue(e.enforce("bob", "/pen2/2", "GET"))
 
+    def test_issue_171(self):
+        e = self.get_enforcer(
+            get_examples("issue171/rbac.conf"),
+            get_examples("issue171/policy.csv"),
+        )
+
+        e.add_named_matching_func("g2", e.fm.fm["globMatch"])
+
+        self.assertTrue(e.enforce("root@localhost", "/", "org.create"))
+
     def test_enforce_abac_log_enabled(self):
         e = self.get_enforcer(get_examples("abac_model.conf"))
         sub = "alice"

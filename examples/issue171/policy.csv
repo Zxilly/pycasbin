@@ -1,0 +1,3 @@
+p, root, *, owner
+g, root@localhost, root
+g2, *.*, owner
